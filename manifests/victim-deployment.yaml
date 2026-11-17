@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: victim-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: victim
+  template:
+    metadata:
+      labels:
+        app: victim
+    spec:
+      containers:
+        - name: victim
+          image: victim-app:v1
+          imagePullPolicy: IfNotPresent
+          envFrom:
+            - secretRef:
+                name: db-secret

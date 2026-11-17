@@ -1,0 +1,16 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: rotator-cronjob
+spec:
+  schedule: "*/5 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          serviceAccountName: rotator-sa 
+          restartPolicy: OnFailure 
+          containers:
+            - name: rotator-container
+              image: rotator-app:v1
+              imagePullPolicy: Never
